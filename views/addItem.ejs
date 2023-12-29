@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  </head>
+  <body>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <div class="category ">
+                    <h2 class="h2">Categories</h2>
+                    <ul class="list-group">
+                    <% categories.forEach(item => { %>
+                        <div class="row">
+                            <li class="col-9"><a href="#" class="list-group-item d-flex justify-content-between align-items-center">
+                                <%= item.categoryName %>
+                                <span class="badge bg-primary rounded-pill"><%= item.noOfItems %></span> 
+                                </a>   
+                            </li>
+
+                            <button class="col-1 btn btn-danger deleteButton" type="submit"><span class="material-symbols-outlined">
+                                delete
+                                </span></button>
+                            <!-- <a class="col-1" href="/remove-category"></a> -->
+                        </div>
+                    <%})%>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-7">
+                <h2 class="h2 text-center">Add New Item</h2>
+                <form action="/add-item" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="itemName" class="form-label">Item Name</label>
+                        <input type="text" class="form-control" id="itemName" name="itemName" aria-describedby="itemNameHelp">
+                        <!-- <div id="itemNameHelp" class="form-text">Category name should not be more than 10 characters</div> -->
+                    </div>
+            
+                    <div class="mb-3">
+                        <label for="itemDescription" class="form-label">Item Description</label>
+                        <input type="text" class="form-control" name="itemDescription" id="itemDescription">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="itemPrice" class="form-label">Unit Price</label>
+                        <input type="number" class="form-control" name="itemPrice" id="itemPrice">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="noOfItems" class="form-label">Number Of Items</label>
+                        <input type="number" class="form-control" name="noOfItems" id="noOfItems" value="1">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select name="category" id="category">
+                            <% categories.forEach(item => { %>
+                                <option value= "<%= item.categoryName %>"> <%= item.categoryName %> </option>
+                            <%})%>
+                          </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <input type="file" name="image">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="javascripts/index.js"></script>
+  </body>
+</html>
+

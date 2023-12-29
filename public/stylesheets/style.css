@@ -1,0 +1,39 @@
+body {
+  padding: 50px;
+  /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
+  font-family: 'Titillium Web', sans-serif;
+}
+
+a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+ul{
+  list-style: none;
+}
+.list-group-item{
+  /* width: 30%; */
+}
+.row {
+  justify-content: space-evenly;
+}
+.btn {
+  margin: 10px;
+}
+
+.btn-danger {
+  margin: 1.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.price-container {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 100px;
+  margin: 0 auto;
+}
+.delete-container {
+  margin-right: 44px;
+}
