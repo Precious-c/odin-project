@@ -15,13 +15,11 @@
     <h1 class="h1 text-center"><%= title %></h1>
     <p class="text-body-secondary text-center">Welcome to <%= title %></p>
 
-    <div class="d-flex justify-content-between">
-      <p><%= search %></p>
+    
       <form class="d-flex " role="search" method="POST" action="/search">
-        <input class="form-control me-2 search-field" type="search" placeholder="Search" aria-label="Search" name="search">
-        <button class="btn btn-outline-success search-field-button" type="submit">Search</button>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
-    </div>
     
 
     
@@ -56,14 +54,7 @@
                 </div>
               </div>
             </div>
-          <%})%>  
-
-          <% messages.forEach(message => { %>
-            <div class="flash-message alert alert-warning" role="alert" style="height: 57px;">
-                <%= message %>
-            </div>
-          <% }); %>    
-
+          <%})%>          
         </div>
       </div>
     </div>

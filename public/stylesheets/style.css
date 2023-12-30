@@ -37,3 +37,10 @@ ul{
 .delete-container {
   margin-right: 44px;
 }
+.search-field{
+  height: 60;
+  margin: 10px;
+}
+.search-field-button {
+  height: 60%;
+}

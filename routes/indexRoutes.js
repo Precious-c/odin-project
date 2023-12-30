@@ -17,6 +17,7 @@ router.post("/add-item", multer, indexController.addItem)
 router.delete('/remove-item/:id', indexController.removeItem)
 router.put("/remove-one/:id", indexController.removeOne)
 router.put("/add-one/:id", indexController.addOne)
+router.post("/search", indexController.search)
 
 module.exports = router;
 

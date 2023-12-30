@@ -29,7 +29,7 @@ async function deleteItem(id){
   }
 }
 
-
+//PUT: Reduce quantity by one
 const removeOneButton = document.querySelector(".removeOneButton");
 removeOneButton.addEventListener("click", function getId(event) {
   reduceByOne(event.target.parentNode.parentNode.parentNode.parentNode.id)
@@ -52,4 +52,25 @@ async function reduceByOne(id){
   }
 }
 
+//PUT: Increase quantity by one
+const addOneButton = document.querySelector(".addOneButton");
+addOneButton.addEventListener("click", function getId(event) {
+  addOne(event.target.parentNode.parentNode.parentNode.parentNode.id)
+    // deleteItem(item.parentNode.parentNode.parentNode.id)
+})
 
+async function addOne(id){
+  try{
+      const response = await fetch(`/add-one/${id}`, {
+          method: 'put',
+          headers: {'Content-Type': 'application/json'},
+        })
+      const data = await response.json()
+      location.reload()
+
+    //   console.log(data)
+    //   await fetch('')
+  }catch(err){
+      console.log(err)
+  }
+}
