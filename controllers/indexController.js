@@ -1,6 +1,5 @@
 const validator = require("validator");
 const multer = require("multer")
-// const Categories = require("../models/categoryModel");
 const Category = require("../models/categoryModel")
 const Item = require("../models/ItemModel")
 
@@ -9,8 +8,6 @@ module.exports = {
     getIndex: async (req, res) => {
         const categories = await Category.find()
         const items = await Item.find()
-        // console.log(categories)
-        // console.log(items)
         res.render('index', { title: 'Inventory Manager', categories: categories, items: items, search: '', messages: [] });
         res.status(200)
     },
@@ -20,9 +17,7 @@ module.exports = {
     },
 
     addCategory: async (req, res) => {
-        console.log(req.body)
         const category = await Category.findOne({categoryName: req.body.categoryName})
-        console.log(category)
         if(!category){
             try{
                 await Category.create({
@@ -46,7 +41,6 @@ module.exports = {
         await Category.findOneAndDelete({categoryName: req.body.categoryName})
         console.log(categoryName + ' deleted')
         res.json("Deleted Successully")
-        // res.redirect('/new-category')
     },
 
     getOneItem: async (req, res) => {
@@ -60,7 +54,6 @@ module.exports = {
     },
 
     addItem: async(req, res) => {
-        console.log(req.body)
         try{
             if (!req.file) {
                 res.status(400).send('No file uploaded.');
@@ -94,7 +87,6 @@ module.exports = {
                 }
             })
             await Item.findOneAndDelete({_id: req.params.id})
-            // res.redirect("/")
             res.json("Deleted Successully")
         } catch (err){
             console.log(err)
@@ -104,13 +96,8 @@ module.exports = {
     removeOne: async(req, res) => {
         try{
             const item = await Item.findOne({_id:req.params.id})
-            console.log(item.numberInStock)
             if(item.numberInStock){
-                console.log("Reducing")
                 await Category.findOneAndUpdate({categoryName: item.category}, {
-                    // $max: { 
-                    //     noOfItems: 0 
-                    // },
                     $inc: {
                         noOfItems: -1
                     }
@@ -120,7 +107,6 @@ module.exports = {
                         numberInStock: -1
                     }
                 })
-                console.log(item.numberInStock)
                 req.flash('message', `1 ${item.itemName} removed Successully.`);
                 res.json('Success')
             } 
@@ -134,7 +120,6 @@ module.exports = {
     addOne: async(req, res) => {
         try{
             const item = await Item.findOne({_id:req.params.id})
-            console.log("Increasing")
             await Category.findOneAndUpdate({categoryName: item.category}, {
                 $inc: {
                     noOfItems: 1
@@ -145,13 +130,8 @@ module.exports = {
                     numberInStock: 1
                 }
             })
-            console.log(item.numberInStock)
             req.flash('message', `1 ${item.itemName} added successully`);
             res.json('Success')
-            
-            // res.json(`1 ${item.itemName} added successully`)
-            
-            // res.redirect(`/item/:${req.params.id}`)
             console.log(`1 ${item.itemName} added successully`)
         } catch (err){
             console.log(err)
@@ -159,28 +139,21 @@ module.exports = {
     },
 
     search: async(req, res) => {
-        console.log("in Search")
         const search = req.body.search
-        console.log(req.body)
-        console.log('search item: ' + search)
         if(search){
             const items = await Item.find()
             itemKeys = Object.keys(items)
-            console.log(itemKeys)
             const results = []
             itemKeys.forEach((key) => {
-                console.log(key)
+
                 if(items[key].itemName.toLowerCase().includes(search.toLowerCase()))
                     results.push(items[key])
             });
-            console.log(results)
-            console.log(results.length)
             const categories = await Category.find()
             if(results.length > 0) {
                 res.render('index', { title: 'Inventory Manager', categories: categories, items: results, search: `${results.length} results for ${search}`, messages: req.flash('messages') });
                 res.status(200)
             } else {
-                console.log("Else")
                 req.flash('message', "No results found")
                 res.render('index', { title: 'Inventory Manager', categories: categories, items: results, search: `${results.length} results for ${search}`, messages: req.flash('message') });
                 res.status(200)
